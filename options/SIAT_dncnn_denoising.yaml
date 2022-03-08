@@ -1,0 +1,69 @@
+DESCRIPTION: ""
+MODULE:
+  NAME: 'denoising'
+MODEL:
+  MODEL_NAME: 'dncnn'
+  NUM_ITER: 17
+  IN_CHANNELS: 2
+  OUT_CHANNELS: 2
+  NUM_FEATURES: 64
+  KERNEL_SIZE: 3
+  BN: True
+  ACT: True
+  BIAS: True
+  GROUPS: 1
+  RESIDUAL: True
+
+DATASET:
+  TRAIN:
+    ROOT: './dataset/SIAT/train'
+    NOISE_LEVEL: 5.
+    BLIND: False
+    PATCH_SIZE: 40
+    REPEAT: 256
+    BATCH_SIZE: 32
+    SAMPLE_RATE: 1.
+    ABS: False
+    TASK: 'denoise'
+    SAVE_TO_MEMORY: False
+
+  VAL:
+    ROOT: './dataset/SIAT/test'
+    NOISE_LEVEL: 5.
+    SAMPLE_RATE: 1.
+    ABS: False
+    TASK: 'denoise'
+
+TRAIN:
+  RESUME: False
+  NUM_EPOCHS: 20
+  LOSS_TYPES: "l2"
+  LOSS_WEIGHTS: (1,)
+  OUT_DIR: "./checkpoints/SIAT/dncnn"
+  PARALLE: False
+  SHOW_MIDDLE_RESULTS: False
+
+
+TEST:
+  MASK_PATH: './dataset/mri_masks/radial_030.mat'
+  OUT_DIR: './results/SIAT/SIAT_dncnn_15'
+  WEIGHT_PATH: './checkpoints/SIAT/SIAT_dncnn_15.0/net.pth'
+  ROOT: './dataset/SIAT/test'
+  NOISE_LEVEL: 15.
+  BATCH_SIZE: 1
+  SAMPLE_RATE: 1.
+  ABS: False
+  TASK: 'denoising'
+  SAVE_TO_MEMORY: False
+  
+SOLVER:
+  MILESTONE: 16
+  LEARNING_RATE: 1e-3
+  LEARNING_RATE_DECAY: 0.1
+  GRADIENT_CLIP: 0.5
+  OPTIMIZER: 'ADAM'
+
+SYSTEM:
+  GPU_IDS: (3,)
+  NUM_GPUS: 1
+  NUM_WORKERS: 4

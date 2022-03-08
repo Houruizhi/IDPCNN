@@ -1,0 +1,30 @@
+DESCRIPTION: ""
+MODEL:
+  MODEL_NAME: 'dncnn'
+  NUM_ITER: 17
+  IN_CHANNELS: 2
+  OUT_CHANNELS: 2
+  NUM_FEATURES: 64
+  KERNEL_SIZE: 3
+  BN: True
+  ACT: True
+  BIAS: True
+  GROUPS: 1
+  RESIDUAL: True
+
+TEST:
+  MASK_PATH: './dataset/mri_masks/radial_030.mat'
+  WEIGHT_PATH: './checkpoints/SIAT'
+  OUT_DIR: './results/SIAT'
+  ROOT: './dataset/SIAT/test'
+  NOISE_LEVEL: 0.
+  BATCH_SIZE: 1
+  SAMPLE_RATE: 1.
+  ABS: False
+  TASK: 'reconstruction'
+  SAVE_TO_MEMORY: False
+
+SYSTEM:
+  GPU_IDS: (2,)
+  NUM_GPUS: 1
+  NUM_WORKERS: 4
