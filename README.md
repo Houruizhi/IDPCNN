@@ -1,4 +1,4 @@
-# [IDPCNN](10.1016/j.cam.2021.113973): Iterative denoising and projecting CNN for MRI reconstruction
+# [IDPCNN](https://doi.org/10.1016/j.cam.2021.113973): Iterative denoising and projecting CNN for MRI reconstruction
 
 
 
